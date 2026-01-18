@@ -1,1 +1,29 @@
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20,30
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport access vlan 20
+!
+interface FastEthernet0/4
+ switchport access vlan 20
+!
+logging 192.168.10.250
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+
+
+
+
 
