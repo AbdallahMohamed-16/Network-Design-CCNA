@@ -1,1 +1,69 @@
-
+interface GigabitEthernet0/0/0.10
+ ip flow egress
+ ip flow ingress
+ encapsulation dot1Q 10
+ ip address 192.168.10.2 255.255.255.192
+ ip nat inside
+ standby 10 ip 192.168.10.1
+ standby 10 priority 110
+ standby 10 preempt
+!
+interface GigabitEthernet0/0/0.20
+ ip flow egress
+ ip flow ingress
+ encapsulation dot1Q 20
+ ip address 192.168.10.66 255.255.255.192
+ ip nat inside
+ standby 20 ip 192.168.10.65
+ standby 20 priority 110
+ standby 20 preempt
+!
+interface GigabitEthernet0/0/0.30
+ ip flow egress
+ ip flow ingress
+ encapsulation dot1Q 30
+ ip address 192.168.10.130 255.255.255.192
+ ip nat inside
+ standby 30 ip 192.168.10.129
+ standby 30 priority 110
+ standby 30 preempt
+!
+interface GigabitEthernet0/0/0.99
+ ip flow egress
+ ip flow ingress
+ encapsulation dot1Q 99
+ ip address 192.168.10.194 255.255.255.192
+ standby 99 ip 192.168.10.193
+ standby 99 priority 110
+ standby 99 preempt
+ip nat inside source list 1 interface GigabitEthernet0/0/1 overload
+ip nat inside source list 10 interface GigabitEthernet0/0/1 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0/1 
+!
+ip flow-export destination 192.168.10.50 2055
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.10.0 0.0.0.255
+ip access-list standard ADMIN_ONLY
+ permit host 192.168.10.200
+access-list 10 permit 192.168.10.0 0.0.0.63
+access-list 10 permit 192.168.10.64 0.0.0.63
+access-list 10 permit 192.168.10.128 0.0.0.63
+!
+!
+!
+!
+!
+logging 192.168.10.50
+line con 0
+!
+line vty 0 4
+ access-class ADMIN_ONLY in
+ login local
+ transport input ssh
+!
+!
+ntp server 192.168.10.50
+!
