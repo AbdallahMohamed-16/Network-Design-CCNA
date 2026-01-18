@@ -1,1 +1,10 @@
+Services Enabled:
+- Syslog (severity level informational)
+- NTP Server
+- NetFlow Collector
+
+Server IP:
+192.168.10.50
+
+Used for centralized monitoring and logging of the network devices.
 
