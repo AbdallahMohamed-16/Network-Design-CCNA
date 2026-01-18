@@ -1,1 +1,47 @@
-
+interface GigabitEthernet0/0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.3 255.255.255.192
+ standby 10 ip 192.168.10.1
+ standby 10 priority 90
+ standby 10 preempt
+!
+interface GigabitEthernet0/0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.10.67 255.255.255.192
+ standby 20 ip 192.168.10.65
+ standby 20 priority 90
+ standby 20 preempt
+!
+interface GigabitEthernet0/0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.10.131 255.255.255.192
+ standby 30 ip 192.168.10.129
+ standby 30 priority 90
+ standby 30 preempt
+!
+interface GigabitEthernet0/0/0.99
+ encapsulation dot1Q 99
+ ip address 192.168.10.195 255.255.255.192
+ standby 99 ip 192.168.10.193
+ standby 99 priority 90
+ standby 99 preempt
+!
+ip access-list standard ADMIN_ONLY
+ permit host 192.168.10.200
+!
+!
+!
+!
+!
+logging 192.168.10.250
+line con 0
+!
+line vty 0 4
+ access-class ADMIN_ONLY in
+ login local
+ transport input ssh
+!
+!
+ntp server 192.168.10.50
+!
+end
