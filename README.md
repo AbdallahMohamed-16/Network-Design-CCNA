@@ -35,3 +35,20 @@ The network consists of multiple VLANs, redundant routers, and centralized monit
 ```bash
 access-list 10 permit 192.168.10.0 0.0.0.63
 ip nat inside source list 10 interface g0/0/1 overload
+username admin privilege 15 secret admin123
+
+ip access-list standard ADMIN_ONLY
+ permit host 192.168.10.200
+
+line vty 0 4
+ login local
+ transport input ssh
+ access-class ADMIN_ONLY in
+
+
+
+Monitoring & Management
+
+Syslog server for centralized logging
+NetFlow enabled on router interfaces
+NTP used for time synchronization
